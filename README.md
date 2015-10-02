@@ -1,6 +1,6 @@
 
 # Sentia
-#### Enlightenment for your Environment
+#### Enlightenment for your Environment in Clouds
 THIS PROJECT IS CURRENTLY IN PROGRESS
 
 Sentia is project focused on visualizing cloud infrastructure. The initial version of the tool will support a nested view of the Netflix Edda API. Future features include a filtering tool, and time-based views of data.
