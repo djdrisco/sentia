@@ -6,17 +6,18 @@
     _.extend(dispatcher, Backbone.Events);
     dispatcher = _.clone(Backbone.Events);
 
+    //var baseUrl = '/sentia';
     var app = {
-        root: '/',
+        root: '',
         isIE: /msie/i.test(navigator.userAgent) && !window.opera, //easy way to determine if ie
         isLowerIE8: (document.all && !document.querySelector) ? true: false,  //ie less than ie 8
         dispatcher: dispatcher,
         api:
         {
-            instancesUrl: '/api/instances/?filter={"providers": ["aws"] }',
-            availabilityZonesUrl: '/api/availabilityzones/?filter={"providers": ["aws"] }',
-            vpcsUrl:'/api/vpcs/?filter={"providers": ["aws"] }',
-            subnetsUrl:'/api/subnets/?filter={"providers": ["aws"] }'
+            instancesUrl: baseUrl + '/api/instances/?filter={"providers": ["aws"] }',
+            availabilityZonesUrl: baseUrl + '/api/availabilityzones/?filter={"providers": ["aws"] }',
+            vpcsUrl:baseUrl + '/api/vpcs/?filter={"providers": ["aws"] }',
+            subnetsUrl:baseUrl + '/api/subnets/?filter={"providers": ["aws"] }'
         }
     };
 

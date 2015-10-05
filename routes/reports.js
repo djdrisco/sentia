@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var settings = require("../settings.js");
-
 var async = require('async');
 var AWS = require('aws-sdk');
 var express = require('express');
@@ -17,9 +15,22 @@ if (process.env.HTTP_PROXY) {
     });
 }
 
+var expressApp = null;
+
+var init = function(app){
+
+    if(app===undefined){
+        console.error('app undefined. app is required to use this module');
+        process.exit(1);
+    }
+    else{
+        expressApp = app;
+    }
+};
+
 var templatePath = require.resolve('../views/jade/index.jade');
 router.get('/', function(req, res){
-     res.render(templatePath, {settings: settings});
+     res.render(templatePath, {settings: expressApp.locals.sentiasettings});
 });
 
 router.get('/vpcs', function(req, res) {
@@ -71,12 +82,13 @@ router.get('/subnets', function(req, res) {
     });
 });
 
-module.exports = router;
+module.exports.init = init;
+module.exports.router = router;
 function collect_regions(action, params, callback) {
-    async.map(settings.regions, function(region, cb) {
+    async.map(expressApp.locals.sentiasettings.regions, function(region, cb) {
         var ec2 = new AWS.EC2({
             region: region,
-            apiVersion: settings.apiVersion
+            apiVersion: expressApp.locals.sentiasettings.apiVersion
         });
         ec2[action](params, function(err, data) {
             if (err) {
