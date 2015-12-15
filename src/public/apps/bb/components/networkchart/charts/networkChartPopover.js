@@ -93,7 +93,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
                 _.each(selectionData,function(element,index,list){
                     textSection.append("tspan")
                         .attr("x", function (d) {
-                            return this.parentElement.attributes.x.value;
+                            return this.parentNode.attributes.x.value;
                         })
                         .attr("dy", "10")
                         .attr("text-decoration","none")

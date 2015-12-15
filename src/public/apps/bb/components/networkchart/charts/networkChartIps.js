@@ -91,7 +91,7 @@ define(["jquery", "d3"], function ($, d3) {
                         //private ip
                         textSection.append("tspan")
                             .attr("x", function (d) {
-                                return this.parentElement.attributes.x.value;
+                                return this.parentNode.attributes.x.value;
                             })
                             .attr("dy", "10")
                             .attr("text-decoration", "none")
@@ -107,7 +107,7 @@ define(["jquery", "d3"], function ($, d3) {
                         //public ip
                         textSection.append("tspan")
                             .attr("x", function (d) {
-                                return this.parentElement.attributes.x.value;
+                                return this.parentNode.attributes.x.value;
                             })
                             .attr("dy", "10")
                             .attr("text-decoration", "none")

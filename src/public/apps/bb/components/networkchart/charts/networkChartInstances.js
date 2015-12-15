@@ -190,7 +190,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .text(function (d) {
                           if (d.name) {
@@ -204,7 +204,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text(function (d) {
@@ -218,7 +218,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text(function (d) {
@@ -233,7 +233,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text(function (d) {
@@ -249,7 +249,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text(function (d) {
@@ -264,7 +264,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text(function (d) {
@@ -278,7 +278,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text(function (d) {
@@ -297,7 +297,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text(function (d) {
@@ -312,7 +312,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text(function (d) {
@@ -333,7 +333,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
                   //security group on hover item
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text("Security Groups")
@@ -345,7 +345,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
                   //Private/Public Ips (EC2-Classic Ips )
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text("EC2-Classic Ips Info.")
@@ -357,7 +357,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
                   //Private Ips (Elastic IPs interface) group on hover item
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text("Elastic Ips Info.")
@@ -369,7 +369,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
                   //Ebs on hover item
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text("Ebs")
@@ -381,7 +381,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
                   //tags on hover item
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text("Tags")
