@@ -412,6 +412,7 @@ define(['jquery','underscore','app','d3','components/networkchart/charts/cloudCh
                         .itemsInRow(0)
                         .rectStyle({'opacity': 0.90946499999999997, 'fill': '#f68d00', 'fill-opacity': 1})
                         .on("securityGroupHover", function (d, i) {
+                            console.log('securityGroupHover (mouseDown) event triggered and detected in networkChartView.')
                             var nameSelector = "#" + d.name.replace(/(:|\.|\[|\]|,)/g,"");
                             var nameCssClass = d.name.replace(/(:|\.|\[|\]|,)/g,"");
 
@@ -427,6 +428,12 @@ define(['jquery','underscore','app','d3','components/networkchart/charts/cloudCh
                                 .regionRectWidth(awsInstanceRectWidth)
                                 .textTopPadding(15)
                                 .textLeftPadding(92)
+                                .on("securityGroupHoverOut", function (d, i) {
+                                    console.log('securityGroupHoverOut event triggered and detected in networkChartView.');
+                                    //var nameCssClass = d.name.replace(/(:|\.|\[|\]|,)/g,"");
+                                    d3.select("g." + "securityGroup_" + nameCssClass)
+                                        .transition().duration(500).remove();
+                                })
                                 .groupClassName("securityGroup_" + nameCssClass)
                                 .numberOfGroups(d.securityGroups.length)
                                 .popoverLabel("Security Group(s)")
@@ -434,12 +441,10 @@ define(['jquery','underscore','app','d3','components/networkchart/charts/cloudCh
 
                             d3.select("body")
                                 .datum(d.securityGroups)
-                                .call(awsSecurityGroupChart);
+                                .call(awsSecurityGroupChart)
+                                .transition().duration(500);
                         })
-                        .on("securityGroupHoverOut", function (d, i) {
-                            var nameCssClass = d.name.replace(/(:|\.|\[|\]|,)/g,"");
-                            d3.select("g." + "securityGroup_" + nameCssClass).remove();
-                        })
+
                         .on("privateIpsGroupHover", function (d, i){
 
                             //need to escape out special characters from d.name
@@ -461,17 +466,18 @@ define(['jquery','underscore','app','d3','components/networkchart/charts/cloudCh
                                 .regionRectWidth(awsInstanceRectWidth)
                                 .groupClassName("privateIps_" + nameCssClass)
                                 .numberOfGroups(numberOfGroups)
-                                .popoverLabel("Ip Info.");
+                                .popoverLabel("Ip Info.")
+                                .on("privateIpsGroupHoverOut", function (d, i){
+                                    console.log('mousedown event to close private Ips popup');
+                                    d3.select("g." + "privateIps_" + nameCssClass).transition().duration(500).remove();
+                                });
 
 
                             d3.select("body")
                                 .datum(d.networkInterfaces)
                                 .call(awsIpsChart);
                         })
-                        .on("privateIpsGroupHoverOut", function (d, i){
-                            var nameCssClass = d.name.replace(/(:|\.|\[|\]|,)/g,"");
-                            d3.select("g." + "privateIps_" + nameCssClass).remove();
-                        })
+
                         .on("privateIpsEc2ClassicGroupHover", function(d,i){
                             var nameSelector = "#" + d.name.replace(/(:|\.|\[|\]|,)/g,"");
                             var nameCssClass = d.name.replace(/(:|\.|\[|\]|,)/g,"");
@@ -489,6 +495,9 @@ define(['jquery','underscore','app','d3','components/networkchart/charts/cloudCh
                                 .regionRectWidth(awsInstanceRectWidth)
                                 .textTopPadding(15)
                                 .textLeftPadding(97)
+                                .on("privateIpsEc2ClassicGroupHoverOut", function(d,i){
+                                    d3.select("g." + "privateIpsEc2Classic_" + nameCssClass).transition().duration(500).remove();
+                                })
                                 .groupClassName("privateIpsEc2Classic_" + nameCssClass)
                                 .numberOfGroups(selectionData.length)
                                 .popoverLabel("Ec2 Classic Ips")
@@ -498,10 +507,7 @@ define(['jquery','underscore','app','d3','components/networkchart/charts/cloudCh
                                 .datum([d])
                                 .call(awsIpsEc2ClassicChart);
                         })
-                        .on("privateIpsEc2ClassicGroupHoverOut", function(d,i){
-                            var nameCssClass = d.name.replace(/(:|\.|\[|\]|,)/g,"");
-                            d3.select("g." + "privateIpsEc2Classic_" + nameCssClass).remove();
-                        })
+
                         .on("ebsHover", function (d, i){
                             var nameSelector = "#" + d.name.replace(/(:|\.|\[|\]|,)/g,"");
                             var nameCssClass = d.name.replace(/(:|\.|\[|\]|,)/g,"");
@@ -521,6 +527,9 @@ define(['jquery','underscore','app','d3','components/networkchart/charts/cloudCh
                                 .regionRectWidth(awsInstanceRectWidth)
                                 .textTopPadding(15)
                                 .textLeftPadding(97)
+                                .on("ebsHoverOut", function (d, i){
+                                    d3.select("g." + "ebs_" + nameCssClass).transition().duration(500).remove();
+                                })
                                 .groupClassName("ebs_" + nameCssClass)
                                 .numberOfGroups(d.blockDeviceMappings.length)
                                 .popoverLabel("Ebs")
@@ -529,10 +538,6 @@ define(['jquery','underscore','app','d3','components/networkchart/charts/cloudCh
                             d3.select("body")
                                 .datum(d.blockDeviceMappings)
                                 .call(awsEbsChart);
-                        })
-                        .on("ebsHoverOut", function (d, i){
-                            var nameCssClass = d.name.replace(/(:|\.|\[|\]|,)/g,"");
-                            d3.select("g." + "ebs_" + nameCssClass).remove();
                         })
                         .on("tagsHover", function (d, i){
                             var nameSelector = "#" + d.name.replace(/(:|\.|\[|\]|,)/g,"");
@@ -550,6 +555,10 @@ define(['jquery','underscore','app','d3','components/networkchart/charts/cloudCh
                                 .regionRectWidth(awsInstanceRectWidth)
                                 .textTopPadding(15)
                                 .textLeftPadding(97)
+                                .on("tagsHoverOut", function (d, i){
+                                    var nameCssClass = d.name.replace(/(:|\.|\[|\]|,)/g,"");
+                                    d3.select("g." + "tags_" + nameCssClass).transition().duration(500).remove();
+                                })
                                 .groupClassName("tags_" + nameCssClass)
                                 .numberOfGroups(d.tags.length)
                                 .popoverLabel("Tags")
@@ -558,11 +567,8 @@ define(['jquery','underscore','app','d3','components/networkchart/charts/cloudCh
                             d3.select("body")
                                 .datum(d.tags)
                                 .call(awsTagChart);
-                        })
-                        .on("tagsHoverOut", function (d, i){
-                            var nameCssClass = d.name.replace(/(:|\.|\[|\]|,)/g,"");
-                            d3.select("g." + "tags_" + nameCssClass).remove();
                         });
+
 
                     d3.select("body")
                         .datum(instanceArrayJson)

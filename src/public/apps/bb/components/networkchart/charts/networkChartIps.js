@@ -188,7 +188,7 @@ define(["jquery", "d3"], function ($, d3) {
             selectionData = value;
             return my;
         }
-
+        d3.rebind(my, dispatch, "on");
         return my;
     }
     return NetworkChartIps;
