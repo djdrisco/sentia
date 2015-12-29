@@ -16,6 +16,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
         var rectStyle = {'opacity': 0.90946499999999997, 'fill': '#FFCC00', 'fill-opacity': 1};  //default style
         var dispatch = d3.dispatch("securityGroupHover","securityGroupHoverOut","privateIpsGroupHover","privateIpsGroupHoverOut",
             "privateIpsEc2ClassicGroupHover","privateIpsEc2ClassicGroupHoverOut","ebsHover","ebsHoverOut","tagsHover","tagsHoverOut");
+        var closeEvent="";
 
         function my(selection) {
 
@@ -85,8 +86,24 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
                     })
                     .attr("dy", "10")
                     .on("mousedown", function(){
-                        console.log("closePopText mouse down");
-                        dispatch.securityGroupHoverOut();
+                        switch(closeEvent){
+                            case "securityGroupHoverOut":
+                                dispatch.securityGroupHoverOut();
+                                break;
+                            case  "privateIpsGroupHoverOut":
+                                dispatch.privateIpsGroupHoverOut();
+                                break;
+                            case  "privateIpsEc2ClassicGroupHoverOut":
+                                dispatch.privateIpsEc2ClassicGroupHoverOut();
+                                break;
+                            case  "ebsHoverOut":
+                                dispatch.ebsHoverOut();
+                                break;
+                            case  "tagsHoverOut":
+                                dispatch.tagsHoverOut();
+                                break;
+                        }
+
                     });
 
                 textYPosition +=  15;
@@ -151,6 +168,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
             });
 
         };
+
 
         my.startXPosition = function (value) {
             if (!arguments.length) return startXPosition;
@@ -237,6 +255,12 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
             else{
                 return false;
             }
+        }
+
+        my.closeEvent = function(value){
+            if(!arguments.length) return closeEvent;
+            closeEvent = value;
+            return my;
         }
         d3.rebind(my, dispatch, "on");
         return my;

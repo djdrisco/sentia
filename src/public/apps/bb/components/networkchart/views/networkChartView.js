@@ -201,7 +201,7 @@ define(['jquery','underscore','app','d3','components/networkchart/charts/cloudCh
                                 });
                 });
 
-                //console.log("networkChartView vpc collection: " + JSON.stringify(this.vpcList));
+
 
                 var counterVpc=0;
                 populatedVpcs.forEach(function(vpc, index, array){
@@ -412,7 +412,6 @@ define(['jquery','underscore','app','d3','components/networkchart/charts/cloudCh
                         .itemsInRow(0)
                         .rectStyle({'opacity': 0.90946499999999997, 'fill': '#f68d00', 'fill-opacity': 1})
                         .on("securityGroupHover", function (d, i) {
-                            console.log('securityGroupHover (mouseDown) event triggered and detected in networkChartView.')
                             var nameSelector = "#" + d.name.replace(/(:|\.|\[|\]|,)/g,"");
                             var nameCssClass = d.name.replace(/(:|\.|\[|\]|,)/g,"");
 
@@ -429,14 +428,13 @@ define(['jquery','underscore','app','d3','components/networkchart/charts/cloudCh
                                 .textTopPadding(15)
                                 .textLeftPadding(92)
                                 .on("securityGroupHoverOut", function (d, i) {
-                                    console.log('securityGroupHoverOut event triggered and detected in networkChartView.');
-                                    //var nameCssClass = d.name.replace(/(:|\.|\[|\]|,)/g,"");
                                     d3.select("g." + "securityGroup_" + nameCssClass)
                                         .transition().duration(500).remove();
                                 })
                                 .groupClassName("securityGroup_" + nameCssClass)
                                 .numberOfGroups(d.securityGroups.length)
                                 .popoverLabel("Security Group(s)")
+                                .closeEvent("securityGroupHoverOut")
                                 .selectionData(selectionData);
 
                             d3.select("body")
@@ -467,8 +465,8 @@ define(['jquery','underscore','app','d3','components/networkchart/charts/cloudCh
                                 .groupClassName("privateIps_" + nameCssClass)
                                 .numberOfGroups(numberOfGroups)
                                 .popoverLabel("Ip Info.")
+                                .closeEvent("privateIpsGroupHoverOut")
                                 .on("privateIpsGroupHoverOut", function (d, i){
-                                    console.log('mousedown event to close private Ips popup');
                                     d3.select("g." + "privateIps_" + nameCssClass).transition().duration(500).remove();
                                 });
 
@@ -501,6 +499,7 @@ define(['jquery','underscore','app','d3','components/networkchart/charts/cloudCh
                                 .groupClassName("privateIpsEc2Classic_" + nameCssClass)
                                 .numberOfGroups(selectionData.length)
                                 .popoverLabel("Ec2 Classic Ips")
+                                .closeEvent("privateIpsEc2ClassicGroupHoverOut")
                                 .selectionData(selectionData);
 
                             d3.select("body")
@@ -533,6 +532,7 @@ define(['jquery','underscore','app','d3','components/networkchart/charts/cloudCh
                                 .groupClassName("ebs_" + nameCssClass)
                                 .numberOfGroups(d.blockDeviceMappings.length)
                                 .popoverLabel("Ebs")
+                                .closeEvent("ebsHoverOut")
                                 .selectionData(selectionData);
 
                             d3.select("body")
@@ -556,12 +556,12 @@ define(['jquery','underscore','app','d3','components/networkchart/charts/cloudCh
                                 .textTopPadding(15)
                                 .textLeftPadding(97)
                                 .on("tagsHoverOut", function (d, i){
-                                    var nameCssClass = d.name.replace(/(:|\.|\[|\]|,)/g,"");
                                     d3.select("g." + "tags_" + nameCssClass).transition().duration(500).remove();
                                 })
                                 .groupClassName("tags_" + nameCssClass)
                                 .numberOfGroups(d.tags.length)
                                 .popoverLabel("Tags")
+                                .closeEvent("tagsHoverOut")
                                 .selectionData(selectionData);
 
                             d3.select("body")
