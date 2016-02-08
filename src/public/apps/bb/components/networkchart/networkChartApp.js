@@ -1,5 +1,6 @@
 define(["app", "backbone", "d3", "components/networkchart/views/networkChartView","components/networkchart/models/region",
-        "components/networkchart/models/vpc","components/networkchart/collections/regionList", "components/networkchart/collections/availabilityZoneList","components/networkchart/collections/vpcList"
+        "components/networkchart/models/vpc","components/networkchart/collections/regionList",
+        "components/networkchart/collections/availabilityZoneList","components/networkchart/collections/vpcList"
     ,"components/networkchart/collections/subnetList","components/networkchart/collections/instanceList"],
  function(app, Backbone, d3, NetworkChartView, Region, Vpc, RegionList, AvailabilityZoneList, VpcList, SubnetList, InstanceList) {
      "use strict";

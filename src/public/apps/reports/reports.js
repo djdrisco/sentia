@@ -213,7 +213,10 @@ var report = {
       dataType: "json"
     });    
   },
-  
+
+  buckets: function(callback) {
+    //TODO finish
+  }
 };
 
 function processPermissions(perms) {

@@ -1,0 +1,89 @@
+{
+    "id": "root", 
+    "children": [
+    {
+        "id": "n1", 
+        "labels": [ { "text": "Region US-West-1" } ],
+        "width": 100,
+        "height": 100
+    },
+    {
+        "id": "n2",
+        "labels": [ { "text": "Region US-East-1" } ],
+        "width": 100,
+        "height": 100,
+        "children": [{ 
+            "id": "n3", 
+            "labels": [ { "text": "VPC Dev" } ],
+            "width": 60,
+            "height": 60,
+            "children": [{
+                    "id": "n6",
+                    "labels": [{"text": "Subnet DevProxy"}],
+                    "width": 30,
+                    "height": 30,
+                    "children": [
+                       {
+                        "id": "n9",
+                        "labels": [{"text": "Instance: Web Server 1"}],
+                        "width": 30,
+                        "height": 30
+                       },
+                       {
+                         "id": "n10",
+                          "labels": [{"text": "Instance: Web Server 2"}],
+                          "width": 30,
+                          "height": 30
+                        },
+                        {
+                            "id": "n11",
+                            "labels": [{"text": "Instance: Db Server 1"}],
+                            "width": 30,
+                            "height": 30
+                        }]
+                },
+                {
+                    "id": "n7",
+                    "labels": [{"text": "Subnet StageProxy"}],
+                    "width": 30,
+                    "height": 30
+                },
+                {
+                    "id": "n8",
+                    "labels": [{"text": "Subnet ProdProxy"}],
+                    "width": 30,
+                    "height": 30
+                }]
+        },
+        {
+            "id": "n4",
+            "labels": [ { "text": "VPC Stage" } ],
+            "width": 60,
+            "height": 60
+        },
+        {
+           "id": "n5",
+                "labels": [ { "text": "VPC Prod" } ],
+                "width": 60,
+                "height": 60
+        }
+        ],
+        "edges": [{
+            "id": "e4", 
+            "source": "n3",
+            "target": "n4"
+        },
+        {
+            "id": "e5",
+            "source": "n4",
+            "target": "n5"
+        }]
+    }],
+    "edges": [{
+        "id": "e1", 
+        "labels": [ { "text": "e1" } ],
+        "source": "n1",
+        "target": "n2"
+    }
+    ]
+}

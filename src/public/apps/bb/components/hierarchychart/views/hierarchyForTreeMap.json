@@ -1,0 +1,165 @@
+{
+    "name": "root", 
+    "children": [
+    {
+        "name": "US-West-1",
+        "labels": [ { "text": "Region US-West-1" } ],
+        "width": 100,
+        "height": 100,
+        "size": 100
+    },
+    {
+        "name": "US-East-1",
+        "labels": [ { "text": "Region US-East-1" } ],
+        "width": 100,
+        "height": 100,
+        "size": 100,
+        "children": [{ 
+            "name": "VPC Dev",
+            "labels": [ { "text": "VPC Dev" } ],
+            "width": 60,
+            "height": 60,
+             "size": 100,
+            "children": [{
+                    "name": "Subnet DevProxy",
+                    "labels": [{"text": "Subnet DevProxy"}],
+                    "width": 30,
+                    "height": 30,
+                    "size": 100,
+                    "children": [
+                       {
+                        "name": "Web Server 1",
+                        "labels": [{"text": "Instance: Web Server 1"}],
+                        "width": 30,
+                        "height": 30,
+                         "size": 100
+                       },
+                       {
+                         "name": "Web Server 2",
+                          "labels": [{"text": "Instance: Web Server 2"}],
+                          "width": 30,
+                          "height": 30,
+                          "size": 100
+                        },
+                       {
+                            "name": "Db Server 1",
+                            "labels": [{"text": "Instance: Db Server 1"}],
+                            "width": 30,
+                            "height": 30,
+                            "size": 100
+                        }]
+                },
+                {
+                    "name": "Subnet DevQA",
+                    "labels": [{"text": "Subnet DevQA"}],
+                    "width": 30,
+                    "height": 30,
+                    "size": 100,
+                  "children": [
+                    {
+                      "name": "Web Server 3",
+                      "labels": [{"text": "Instance: Web Server 3"}],
+                      "width": 30,
+                      "height": 30,
+                      "size": 100
+                    },
+                    {
+                      "name": "Web Server 4",
+                      "labels": [{"text": "Instance: Web Server 4"}],
+                      "width": 30,
+                      "height": 30,
+                      "size": 100
+                    },
+                    {
+                      "name": "Db Server 2",
+                      "labels": [{"text": "Instance: Db Server 2"}],
+                      "width": 30,
+                      "height": 30,
+                      "size": 100
+                    },
+                    {
+                      "name": "Email Server 1",
+                      "labels": [{"text": "Instance: Email Server 1"}],
+                      "width": 30,
+                      "height": 30,
+                      "size": 100
+                    }
+                  ]
+                }]
+        },
+        {
+            "name": "VPC Stage",
+            "labels": [ { "text": "VPC Stage" } ],
+            "width": 60,
+            "height": 60,
+            "size": 100,
+            "children": [{
+            "name": "Subnet StageProxy",
+            "labels": [{"text": "Subnet StageProxy"}],
+            "width": 30,
+            "height": 30,
+            "size": 100,
+            "children": [
+              {
+                "name": "Stage Web Server 1",
+                "labels": [{"text": "Instance: Stage Web Server 1"}],
+                "width": 30,
+                "height": 30,
+                "size": 100
+              },
+              {
+                "name": "Stage Web Server 2",
+                "labels": [{"text": "Instance: Stage Web Server 2"}],
+                "width": 30,
+                "height": 30,
+                "size": 100
+              },
+              {
+                "name": "Stage Db Server 1",
+                "labels": [{"text": "Instance: Stage Db Server 1"}],
+                "width": 30,
+                "height": 30,
+                "size": 100
+              }]
+          }]
+        },
+        {
+           "name": "VPC Prod",
+                "labels": [ { "text": "VPC Prod" } ],
+                "width": 60,
+                "height": 60,
+                "size": 100,
+          "children":[{
+           "name": "Subnet LiveWebSites",
+            "labels": [{"text": "Subnet LiveWebSites"}],
+            "width": 30,
+            "height": 30,
+            "size": 100,
+            "children": [
+              {
+                "name": "Prod Web Server 1",
+                "labels": [{"text": "Instance: Prod Web Server 1"}],
+                "width": 30,
+                "height": 30,
+                "size": 100
+              },
+              {
+                "name": "Prod Web Server 2",
+                "labels": [{"text": "Instance: Stage Web Server 2"}],
+                "width": 30,
+                "height": 30,
+                "size": 100
+              },
+              {
+                "name": "Prod Db Server 1",
+                "labels": [{"text": "Instance: Stage Db Server 1"}],
+                "width": 30,
+                "height": 30,
+                "size": 100
+              }]
+             }]
+        }]
+        }
+        ],
+    "size": 100
+}
