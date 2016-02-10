@@ -57,7 +57,7 @@ define(['jquery','underscore','backbone','d3','klay','klayjsd3','colorbrewer','s
             //first remove old nodes if exists
             //d3.select("body").selectAll(".nodeTreemap").data(that.treemap.nodes).exit().remove();
 
-
+            that.treemap.sticky(true);
             //second add new nodes (new data)
             var div = d3.select("body").append("div")
                     .style("position", "relative")
@@ -66,21 +66,23 @@ define(['jquery','underscore','backbone','d3','klay','klayjsd3','colorbrewer','s
                     .style("left", that.marginProperties.left + "px")
                     .style("top", that.marginProperties.top + "px");
 
-            var node = div.datum(jsonData).selectAll(".nodeTreemap")
-                    .data(that.treemap.nodes)
-                    .enter().append("div")
-                    .attr("class", "nodeTreemap");
+            var selector = div.datum(jsonData).selectAll(".nodeTreemap")
+                    .data(that.treemap.nodes);
 
-            div.selectAll(".nodeTreemap").data(that.treemap.nodes).exit().remove();
+            var entering = selector.enter();
 
-            node.transition()
-                    .duration(1500)
+            entering.append("div")
+                .attr("class", "nodeTreemap")
                     .call(that.position)
                     .style("background", function(d) {
                         return d.children ? color(d.name) : null;
                     })
-                    .text(function(d) { return d.children ? d.name : d.name; });
+                   .text(function(d) { return d.children ? d.name : d.name; });
 
+            selector.text(function(d) { return d.children ? d.name : d.name; });
+
+            var exiting = selector.exit();
+            exiting.remove();
 
         },
         updateViewData: function(){
