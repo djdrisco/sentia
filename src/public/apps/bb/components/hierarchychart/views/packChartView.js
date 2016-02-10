@@ -60,15 +60,6 @@ define(['jquery','underscore','backbone','d3','klay','klayjsd3','colorbrewer','s
                 width = 960 - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom;
 
-            //colorbrewer example
-           // d3.scale.category10 = function() {
-           //     return d3.scale.ordinal().range(d3_category10);
-            //};
-
-            //var o = d3.scale.ordinal()
-            //    .domain(["foo", "bar", "baz"])
-            //    .range(colorbrewer.RdBu[9]);
-
             var orangeScaleCategory = function(){
                 return d3.scale.ordinal().range(colorbrewer.YlOrBr[9])
             }

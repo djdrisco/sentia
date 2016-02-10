@@ -249,21 +249,26 @@ define(['../../app', 'backbone', 'd3','q','components/networkchart/collections/r
                 var deferred = q.defer();
 
                 var topNode = {};
-                topNode.id = "Root Node";
+                topNode.name = "";
                 topNode.labels = [{"text": "Root Node"}];
+                //treeMap Layout needs size property set, this helps calculate the size of each node in the diagram
+                //in our case we want the sizes consistent , see we will set all nodes to size=100
+                topNode.size = 100;
                 var topNodeChildren = [];
                 regionList.forEach(function (regionItem){
                     var regionNode = {};
-                    regionNode.id = regionItem.get("name");
+                    regionNode.name = regionItem.get("name");
                     regionNode.labels = [{"text":regionItem.get("name")}];
+                    regionNode.size = 100;
 
                     //children are vpcs
                     var regionChildren = [];
                     var vpcCollection = regionItem.get("vpcCollection");
                     vpcCollection.forEach(function (vpc) {
                         var vpcChild = {};
-                        vpcChild.id = vpc.get("name");
+                        vpcChild.name = vpc.get("name");
                         vpcChild.labels = [{"text":vpc.get("name")}];
+                        vpcChild.size = 100;
 
                         var subnetListFiltered = subnetList.filter(function(subnet){
                             return subnet.get("vpcId") === vpc.get("vpcId");
@@ -271,16 +276,18 @@ define(['../../app', 'backbone', 'd3','q','components/networkchart/collections/r
                         var vpcChildren = [];
                         subnetListFiltered.forEach(function (subnet, index, array) {
                             var subnetChild = {};
-                            subnetChild.id = subnet.get("name");
+                            subnetChild.name = subnet.get("name");
                             subnetChild.labels = [{"text":subnet.get("name")}];
+                            subnetChild.size = 100;
                             var instanceListFiltered = instanceList.filter(function(instance){
                                 return instance.get("subnetId") === subnet.get("subnetId");
                             });
                             var subnetChildren = [];
                             instanceListFiltered.forEach(function(instance, index, array){
                                var instanceChild = {};
-                                instanceChild.id = instance.get("name");
+                                instanceChild.name = instance.get("name");
                                 instanceChild.labels = [{"text": instance.get("name")}];
+                                instanceChild.size = 100;
                                 subnetChildren.push(instanceChild);
                             });
                             subnetChild.children = subnetChildren;
@@ -308,36 +315,34 @@ define(['../../app', 'backbone', 'd3','q','components/networkchart/collections/r
                 populateRegions().then(function(data){
                     var promisesArray = [];
                     promisesArray.push(fetchInstances(app.api.instancesUrl));
-                    q.allSettled(promisesArray);
+                    q.allSettled(promisesArray).then(function(instancesData) {
+                        calculateInstancesPerAvailZone().then(function (someData) {
+                            promisesArray = [];
+                            promisesArray.push(fetchVpcs(app.api.vpcsUrl));
+                            q.allSettled(promisesArray).then(calculateInstancesPerRegion).then(calculateInstancesPerVpc);
 
+                            promisesArray = [];
+                            promisesArray.push(updateRegionsVpcInfo);
+                            q.allSettled(promisesArray);
 
-                    calculateInstancesPerAvailZone().then(function(someData){
-                        promisesArray =[];
-                        promisesArray.push(fetchVpcs(app.api.vpcsUrl));
-                        q.allSettled(promisesArray).then(calculateInstancesPerRegion).then(calculateInstancesPerVpc);
+                            promisesArray = [];
+                            promisesArray.push(fetchSubnets(app.api.subnetsUrl));
+                            q.allSettled(promisesArray).then(calculateInstancesPerSubnet).then(createHierarchy).then(function (data) {
+                                //console.log("topNode json: " + JSON.stringify(data));
 
-                        promisesArray =[];
-                        promisesArray.push(updateRegionsVpcInfo);
-                        q.allSettled(promisesArray);
+                                //HierArchyView (prod)
+                                //var hierarchyView = new HierarchyChartView({ manage: true, regionList: data});
+                                //var layoutHome = app.useLayout('main', { view: { '#containerOne' : hierarchyView } });
+                                //layoutHome.render();
 
-                        promisesArray = [];
-                        promisesArray.push(fetchSubnets(app.api.subnetsUrl));
-                        q.allSettled(promisesArray).then(calculateInstancesPerSubnet).then(createHierarchy).then(function(data){
-                            console.log("topNode json: " + JSON.stringify(data));
+                                //D3 treemap test
+                                var treeView = new TreeMapView({manage: true, regionList: data});
+                                var layoutHome = app.useLayout('main', {view: {'#containerOne': treeView}});
+                                layoutHome.render();
 
-                            //HierArchyView (prod)
-                            //var hierarchyView = new HierarchyChartView({ manage: true, regionList: data});
-                            //var layoutHome = app.useLayout('main', { view: { '#containerOne' : hierarchyView } });
-                            //layoutHome.render();
-
-                            //D3 treemap test
-                            var treeView = new TreeMapView({manage: true, regionList: data});
-                            var layoutHome = app.useLayout('main', { view: { '#containerOne' : treeView } });
-                            layoutHome.render();
-
+                            });
                         });
                     });
-
 
                 });
             });
