@@ -14,6 +14,9 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
         //example  var selectionData = [ {"selectionLabel": "Group id", "selectionSelector": "groupId" } ,
         //{"selectionLabel": "Group Name", "selectionSelector": "groupName"} ];
         var rectStyle = {'opacity': 0.90946499999999997, 'fill': '#FFCC00', 'fill-opacity': 1};  //default style
+        var dispatch = d3.dispatch("securityGroupHover","securityGroupHoverOut","privateIpsGroupHover","privateIpsGroupHoverOut",
+            "privateIpsEc2ClassicGroupHover","privateIpsEc2ClassicGroupHoverOut","ebsHover","ebsHoverOut","tagsHover","tagsHoverOut");
+        var closeEvent="";
 
         function my(selection) {
 
@@ -62,6 +65,49 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                 var securityTextGroup = d3.select(this).select("g." + groupClassName);
 
+                //new
+                var closePopText = d3.select(this).selectAll("g." + groupClassName)
+                    .append("text")
+                    .text(function(d){
+                        return "[ X ]"
+                    })
+                    .attr("class",function (d, i){
+                        return groupClassName + "closePopText";
+                    })
+                    .attr("text-anchor", "middle")
+                    .attr("text-decoration","underline")
+                    .style("cursor", "pointer").style("cursor", "pointer")
+                    .attr("x", function (d){
+                        return textXPosition + 45;
+                    })
+                    .attr("y", function (d){
+
+                        return textYPosition - 7;
+                    })
+                    .attr("dy", "10")
+                    .on("mousedown", function(){
+                        switch(closeEvent){
+                            case "securityGroupHoverOut":
+                                dispatch.securityGroupHoverOut();
+                                break;
+                            case  "privateIpsGroupHoverOut":
+                                dispatch.privateIpsGroupHoverOut();
+                                break;
+                            case  "privateIpsEc2ClassicGroupHoverOut":
+                                dispatch.privateIpsEc2ClassicGroupHoverOut();
+                                break;
+                            case  "ebsHoverOut":
+                                dispatch.ebsHoverOut();
+                                break;
+                            case  "tagsHoverOut":
+                                dispatch.tagsHoverOut();
+                                break;
+                        }
+
+                    });
+
+                textYPosition +=  15;
+
                 var textSection = securityTextGroup.selectAll('text.' + groupClassName + "Text")
                     .data(d)
                     .enter()
@@ -90,10 +136,12 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
                     });
 
 
+
+
                 _.each(selectionData,function(element,index,list){
                     textSection.append("tspan")
                         .attr("x", function (d) {
-                            return this.parentElement.attributes.x.value;
+                            return this.parentNode.attributes.x.value;
                         })
                         .attr("dy", "10")
                         .attr("text-decoration","none")
@@ -120,6 +168,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
             });
 
         };
+
 
         my.startXPosition = function (value) {
             if (!arguments.length) return startXPosition;
@@ -208,6 +257,12 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
             }
         }
 
+        my.closeEvent = function(value){
+            if(!arguments.length) return closeEvent;
+            closeEvent = value;
+            return my;
+        }
+        d3.rebind(my, dispatch, "on");
         return my;
     }
     return NetworkChartPopOver;

@@ -22,5 +22,15 @@ module.exports = {
 
     'regions': [
         'us-east-1'
-    ]
+    ],
+
+    "mongodb": {
+        "host": "localhost",
+        "port": 27017
+    },
+
+    "dbs": {
+        "auth":"auth"
+    },
 }
+

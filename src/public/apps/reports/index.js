@@ -68,7 +68,17 @@ $(function() {
   });
 
   ////////////////////////////////////////////////////////////////////////////////////////
+  // S3 Buckets
 
+  $('#s3').click(function(){
+    $("#results").text("");
+    show_loader();
+    report.buckets(function(err, title, table_data, options){
+      var table = create_table(title, table_data, options);
+      $("#results").text("");
+      $("#results").append(table);
+    });
+  });
 });
 
 function show_loader() {

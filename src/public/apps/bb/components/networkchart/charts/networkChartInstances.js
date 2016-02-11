@@ -190,7 +190,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .text(function (d) {
                           if (d.name) {
@@ -204,7 +204,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text(function (d) {
@@ -218,7 +218,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text(function (d) {
@@ -233,7 +233,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text(function (d) {
@@ -249,7 +249,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text(function (d) {
@@ -264,7 +264,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text(function (d) {
@@ -278,7 +278,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text(function (d) {
@@ -297,7 +297,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text(function (d) {
@@ -312,7 +312,7 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
 
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text(function (d) {
@@ -333,62 +333,62 @@ define(["jquery", "d3","moment"], function ($, d3, moment) {
                   //security group on hover item
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text("Security Groups")
                       .attr("text-decoration", "underline")
-                      .style("cursor", "pointer")
-                      .on("mouseover", dispatch.securityGroupHover)
-                      .on("mouseout", dispatch.securityGroupHoverOut);
+                      .style("cursor", "pointer").style("cursor", "pointer")
+                      .on("mousedown", dispatch.securityGroupHover);
+                      //.on("mouseout", dispatch.securityGroupHoverOut);
 
                   //Private/Public Ips (EC2-Classic Ips )
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text("EC2-Classic Ips Info.")
                       .attr("text-decoration", "underline")
                       .style("cursor", "pointer")
-                      .on("mouseover", dispatch.privateIpsEc2ClassicGroupHover)
-                      .on("mouseout", dispatch.privateIpsEc2ClassicGroupHoverOut);
+                      .on("mousedown", dispatch.privateIpsEc2ClassicGroupHover);
+                      //.on("mouseout", dispatch.privateIpsEc2ClassicGroupHoverOut);
 
                   //Private Ips (Elastic IPs interface) group on hover item
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text("Elastic Ips Info.")
                       .attr("text-decoration", "underline")
                       .style("cursor", "pointer")
-                      .on("mouseover", dispatch.privateIpsGroupHover)
-                      .on("mouseout", dispatch.privateIpsGroupHoverOut);
+                      .on("mousedown", dispatch.privateIpsGroupHover);
+                      //.on("mouseout", dispatch.privateIpsGroupHoverOut);
 
                   //Ebs on hover item
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text("Ebs")
                       .attr("text-decoration", "underline")
                       .style("cursor", "pointer")
-                      .on("mouseover", dispatch.ebsHover)
-                      .on("mouseout", dispatch.ebsHoverOut);
+                      .on("mousedown", dispatch.ebsHover);
+                      //.on("mouseout", dispatch.ebsHoverOut);
 
                   //tags on hover item
                   labelSection.append("tspan")
                       .attr("x", function (d) {
-                          return this.parentElement.attributes.x.value;
+                          return this.parentNode.attributes.x.value;
                       })
                       .attr("dy", "10")
                       .text("Tags")
                       .attr("text-decoration", "underline")
                       .style("cursor", "pointer")
-                      .on("mouseover", dispatch.tagsHover)
-                      .on("mouseout", dispatch.tagsHoverOut);
+                      .on("mousedown", dispatch.tagsHover);
+                      //.on("mouseout", dispatch.tagsHoverOut);
 
               }
           );

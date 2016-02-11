@@ -124,7 +124,6 @@ router.get('/:action', function(req, res, next) {
     }
 
     function resultCallback(error, result){
-        console.log('resultCallBack started')
         if (error) {
             next(error); //if we have 2 providers, we can't send res.status(400) twice, have to pass error along
         }
@@ -183,7 +182,6 @@ router.get('/:action/:providers', function(req, res, next) {
     }
 
     function resultCallback(error, result){
-        console.log('resultCallBack started')
         if (error) {
             next(error); //if we have 2 providers, we can't send res.status(400) twice, have to pass error along
         }
